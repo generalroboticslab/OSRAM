@@ -1,0 +1,12 @@
+type: task
+data_path: "artifacts/data/tron1/trajectory/loco-manip_explore"
+obs_list: [10, 11, 12, 13, 14, 15, 16]
+command_list: [64, 65, 66, 67, 68, 69, 70]
+input_horizon: 10
+action_history: true
+output_horizon: 1
+normalize: false
+input_range: 1.0
+output_range: 1.0
+filter: false
+save_path: "artifacts/data/tron1/dataset/task/loco-manip_policy"

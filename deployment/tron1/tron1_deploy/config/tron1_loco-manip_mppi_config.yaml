@@ -1,0 +1,17 @@
+tron1_mppi:
+  ros__parameters:
+    subscribe_topic_name: "tron1/mppi_obs"
+    publish_topic_name: "tron1/mppi_command"
+    mode_button: 6
+    # mppi
+    mppi.horizon: 20 # 20
+    # mppi.noise: 0.3 # 0.3
+    mppi.noise: [0.3, 0.08, 0.01, 0.0, 0.0, 0.0, 0.0] # [0.3, 0.15, 0.01, 0.0, 0.0, 0.0, 0.0]
+    mppi.noise_annealing_coefficient: 1.8 # 1.8
+    mppi.lam: 0.05 # 0.05
+    mppi.gains: [10.0, 0.5, 0.0]
+    mppi.cost_decay: 0.8  # 0.8
+    mppi.n_iters: 5 # 5
+    # Base checkpoint used for online fine-tuning.
+    model.path: "model/pose_tracking/reptile.npz"
+    model.save_directory: "bag/models/loco-manipulation"

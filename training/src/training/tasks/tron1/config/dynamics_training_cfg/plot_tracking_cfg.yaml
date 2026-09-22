@@ -1,0 +1,13 @@
+task: tracking 
+
+traj_path: 
+  - "artifacts/data/tron1/trajectory/velocity_explore_compare"
+  # - "artifacts/data/tron1/trajectory/randomized_policy_compare" 
+
+obs_list: [0, 1, 5] 
+command_list: [33, 34, 35] 
+plot_save_path: "artifacts/plots/tron1/explore/velocity_policy/velocity_explore_compare"
+filter: "low-pass"
+traj_start: 0
+traj_length: 2000
+# env_idx: 20

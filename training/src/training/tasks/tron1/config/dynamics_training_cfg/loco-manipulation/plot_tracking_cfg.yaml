@@ -1,0 +1,12 @@
+task: tracking 
+
+traj_path: 
+  - "artifacts/data/tron1/trajectory/loco-manip_explore"
+
+obs_list: [10, 11, 12, 13, 14, 15, 16] 
+command_list: [64, 65, 66, 67, 68, 69, 70] 
+plot_save_path: "artifacts/plots/tron1/explore/loco_manip_policy/loco_manip_explore"
+# filter: "low-pass"
+traj_start: 0
+traj_length: 2000
+env_idx: 68

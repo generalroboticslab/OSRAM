@@ -1,0 +1,32 @@
+<class_libraries>
+  <library path="tron1_velocity_policy">
+    <class name="tron1_deploy/Tron1VelocityPolicy" type="tron1_deploy::Tron1VelocityPolicy" base_class_type="controller_interface::ChainableControllerInterface"/>
+  </library>
+  <library path="tron1_velocity">
+    <class name="tron1_deploy/Tron1Velocity" type="tron1_deploy::Tron1Velocity" base_class_type="controller_interface::ChainableControllerInterface"/>
+  </library>
+  <library path="tron1_loco_manipulation">
+    <class name="tron1_deploy/Tron1LocoManipulation" type="tron1_deploy::Tron1LocoManipulation" base_class_type="controller_interface::ChainableControllerInterface"/>
+  </library>
+  <library path="tron1_loco_manipulation_no_gripper">
+    <class name="tron1_deploy/Tron1LocoManipulationNoGripper" type="tron1_deploy::Tron1LocoManipulationNoGripper" base_class_type="controller_interface::ChainableControllerInterface"/>
+  </library>
+  <library path="tron1_loco_manipulation_no_gripper_standing_policy">
+    <class name="tron1_deploy/Tron1LocoManipulationNoGripperStandingPolicy" type="tron1_deploy::Tron1LocoManipulationNoGripperStandingPolicy" base_class_type="controller_interface::ChainableControllerInterface"/>
+  </library>
+  <library path="tron1_iekf_estimator">
+    <class name="tron1_deploy/Tron1IEKFEstimator" type="tron1_deploy::Tron1IEKFEstimator" base_class_type="controller_interface::ChainableControllerInterface"/>
+  </library>
+  <library path="tron1_velocity_planner">
+    <class name="tron1_deploy/Tron1VelocityPlanner" type="tron1_deploy::Tron1VelocityPlanner" base_class_type="controller_interface::ChainableControllerInterface"/>
+  </library>
+  <library path="tron1_mppi_planner">
+    <class name="tron1_deploy/Tron1MPPIPlanner" type="tron1_deploy::Tron1MPPIPlanner" base_class_type="controller_interface::ChainableControllerInterface"/>
+  </library>
+  <library path="tron1_standing_policy">
+    <class name="tron1_deploy/Tron1StandingPolicy" type="tron1_deploy::Tron1StandingPolicy" base_class_type="controller_interface::ChainableControllerInterface"/>
+  </library>
+  <library path="tron1_with_arm_planner">
+    <class name="tron1_deploy/Tron1WithArmPlanner" type="tron1_deploy::Tron1WithArmPlanner" base_class_type="controller_interface::ChainableControllerInterface"/>
+  </library>
+</class_libraries>

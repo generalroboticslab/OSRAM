@@ -1,0 +1,22 @@
+task: forward
+model_type: tron1
+data_path: "artifacts/data/tron1/dataset/one/velocity_policy.npz" 
+lr: 0.0001
+weight_decay: 0.0
+batch_size: 64
+num_epochs: 2
+data_size: 100000
+train_size: 0.8  # number of training samples
+val_size: 0.2    # number of validation samples
+model_log_path: "artifacts/models/tron1/velocity_policy/forward.npz"
+training_name: "standard_mlp_tron1"
+
+# model
+input_dim: 33
+output_dim: 3
+hidden_dims: [32, 64, 256, 64, 32]
+input_range: 5.0
+output_range: 5.0
+activation: "mish"
+type: "mlp"
+

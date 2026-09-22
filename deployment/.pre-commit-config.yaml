@@ -1,0 +1,18 @@
+repos:
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v18.1.8
+    hooks:
+      - id: clang-format
+        types_or: [c++, c]
+        files: ^src/.*\.(cpp|hpp|h|cc)$
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+        exclude: ^(build|install|log)/
+      - id: check-added-large-files
+        args: ['--maxkb=10240']
+        exclude: ^tron1/tron1_deploy/model/.*\.onnx$

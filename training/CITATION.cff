@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "Training"
+type: software
+version: 0.1.0
+authors:
+  - family-names: Zhang
+    given-names: Yuhao
+    email: huangyuhaowork@outlook.com
+repository-code: "https://github.com/generalroboticslab/OSRAM/tree/main/training"
+url: "https://github.com/generalroboticslab/OSRAM"

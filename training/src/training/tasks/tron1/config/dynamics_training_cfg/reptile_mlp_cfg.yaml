@@ -1,0 +1,27 @@
+task: reptile
+model_type: tron1
+data_path: "artifacts/data/tron1/dataset/task/randomized_policy" # specify your data path here
+lr: 0.0001
+weight_decay: 0.0
+batch_size: 64
+num_epochs: 300
+# model_log_path: " " # specify your model log path here
+data_size: 100000
+train_size: 0.8  # number of training samples
+val_size: 0.2    # number of validation samples
+model_log_path: "artifacts/models/tron1/reptile.npz"
+training_name: "reptile_mlp_tron1"
+
+# model
+input_dim: 33
+output_dim: 3
+hidden_dims: [32, 64, 256, 64, 32]
+input_range: 5.0
+output_range: 5.0
+activation: "mish"
+type: "mlp"
+
+# reptile
+num_tasks: 5
+inner_steps: 5
+

@@ -1,0 +1,9 @@
+<library path="tron1_mujoco_sim_plugins">
+  <class name="mujoco_sim::Tron1SimNode"
+         type="mujoco_sim::Tron1SimNode"
+         base_class_type="mujoco_sim::MujocoSimNodeBase"/>
+
+  <class name="mujoco_sim::Tron1SimGroundTruth"
+         type="mujoco_sim::Tron1SimGroundTruth"
+         base_class_type="mujoco_sim::MujocoSimNodeBase"/>
+</library>

@@ -1,0 +1,13 @@
+type: task
+data_path: "artifacts/data/tron1/trajectory/velocity_explore"
+obs_list: [0, 1, 5]
+command_list: [33, 34, 35]
+input_horizon: 10
+output_horizon: 1
+normalize: true
+input_range: 5.0
+output_range: 5.0
+filter: true
+cutoff_freq: 5.0
+sample_rate: 50.0
+save_path: "artifacts/data/tron1/dataset/task/velocity_policy"

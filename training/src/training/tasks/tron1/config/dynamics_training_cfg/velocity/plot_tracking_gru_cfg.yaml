@@ -1,0 +1,13 @@
+task: tracking 
+
+traj_path: 
+  - "artifacts/data/tron1/trajectory/velocity_gru_explore"
+
+obs_list: [6, 7, 17]        # lin_vel_x(t), lin_vel_y(t), ang_vel_z(t)
+command_list: [105, 106, 107]
+plot_save_path: "artifacts/plots/tron1/explore/velocity_policy/velocity_explore_gru"
+filter: "low-pass"
+traj_start: 0
+traj_length: 2000
+# env_idx: 20
+device: "cuda:0"

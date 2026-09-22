@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>tron1_deploy</name>
+  <version>0.0.0</version>
+  <description>TRON1 controllers, planners, simulation integration, and hardware deployment launch files.</description>
+  <maintainer email="huangyuhaowork@outlook.com">yuhao</maintainer>
+  <license>TODO: License declaration</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>rclcpp_lifecycle</depend>
+  <depend>controller_interface</depend>
+  <depend>hardware_interface</depend>
+  <depend>pluginlib</depend>
+  <depend>realtime_tools</depend>
+  <depend>tsid</depend>
+  <depend>base_planners</depend>
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <depend>base_humanoid_estimators</depend>
+  <depend>base_humanoid_planners</depend>
+  <depend>base_humanoid_controllers</depend>
+  <depend>base_utils</depend>
+  <depend>rl_utils</depend>
+  <depend>tron1_description</depend>
+  <depend>mujoco_sim</depend>
+  <depend>humanoid_msgs</depend>
+  <depend>manipulator_msgs</depend>
+  <depend>end_effector_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>rcl_interfaces</depend>
+  <depend>tf2_ros</depend>
+  <depend>control_toolbox</depend>
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>recorder</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

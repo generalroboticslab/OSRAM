@@ -1,0 +1,27 @@
+task: forward
+model_type: tron1
+data_path: "artifacts/data/tron1/dataset/one/loco-manip_policy.npz"
+lr: 0.0001
+weight_decay: 0.0
+batch_size: 64
+num_epochs: 50 # 1000
+data_size: 100000
+train_size: 0.8  # number of training samples
+val_size: 0.2    # number of validation samples
+model_log_path: "artifacts/models/tron1/loco-manip_policy/forward.npz"
+training_name: "standard_mlp_tron1"
+
+# model
+input_dim: 147
+output_dim: 7
+hidden_dims: [32, 64, 256, 64, 32]
+input_range: 1.0
+output_range: 1.0
+activation: "mish"
+type: "mlp"
+obs_history_dim: 70
+shuffle_length: 8
+lambda_r: 1.0 # 0.1
+regressive_loss_discount: 0.9
+
+

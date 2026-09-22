@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install Python
+        run: uv python install 3.12
+      - name: Install locked dependencies
+        run: uv sync --frozen --dev
+      - name: Check formatting
+        run: uv run ruff format --check .
+      - name: Lint
+        run: uv run ruff check .
+      - name: Test
+        env:
+          JAX_PLATFORMS: cpu
+          MPLBACKEND: Agg
+        run: uv run pytest -q
+      - name: Validate citation metadata
+        run: uv run cffconvert --validate
+      - name: Build distributions
+        run: uv build
+      - name: Verify wheel contents
+        run: uv run python -m zipfile --list dist/*.whl

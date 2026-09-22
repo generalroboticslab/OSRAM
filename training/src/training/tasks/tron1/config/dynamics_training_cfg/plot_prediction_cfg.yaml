@@ -1,0 +1,35 @@
+# Plot prediction configuration
+task: prediction
+
+# Model settings
+model: tron1
+model_path: 
+  - "artifacts/models/tron1/velocity_policy/forward_finetuned.npz"
+  - "artifacts/models/tron1/velocity_policy/reptile_finetuned.npz"
+hidden_dims: [32, 64, 256, 64, 32]
+activation: mish
+seed: 42
+type: mlp
+Lipschitz_ub: 100000 # no influence on the model
+J_Lipschitz_ub: 100000
+lambda_c: 0.0
+lambda_d: 0.0
+inference_mode: true
+
+# Data settings
+data_path:  "artifacts/data/tron1/dataset/one/velocity_policy_compare2.npz"
+command_list: [33, 34, 35]
+obs_list: [0, 1, 5]
+
+# Normalization ranges (should match training)
+input_range: 5.0
+output_range: 5.0
+denormalize: true
+
+# Prediction settings
+rollout_steps: 1
+traj_start: 800
+traj_length: 1600
+
+# Output
+plot_save_path: "artifacts/plots/tron1/explore/velocity_policy/prediction_explore_compare.png"

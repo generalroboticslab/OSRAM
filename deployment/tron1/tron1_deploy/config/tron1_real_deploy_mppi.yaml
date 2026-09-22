@@ -1,0 +1,368 @@
+# Controller Manager configuration
+controller_manager:
+  ros__parameters:
+    update_rate: 500  # Hz
+
+    tron1_iekf_estimator:
+      type: tron1_deploy/Tron1IEKFEstimator
+
+    tron1_velocity_planner:
+      type: tron1_deploy/Tron1VelocityPlanner
+
+    tron1_mppi_planner:
+      type: tron1_deploy/Tron1MPPIPlanner
+
+    tron1_edamp_controller:
+      type: humanoid_controllers/HumanoidPassthroughController
+
+    tron1_squatting_controller:
+      type: humanoid_controllers/HumanoidPassthroughController
+
+    tron1_standing_controller:
+      type: tron1_deploy/Tron1StandingPolicy
+
+    tron1_velocity_policy:
+      type: tron1_deploy/Tron1Velocity
+
+#     tracker_name: "grl_tron1"
+#     sampling_frequency: 100.0  # Hz
+#     damping_frequency: 5.0
+#     impedance_frequency: 1.0
+#     joint_names:
+#       - "abad_L_Joint"
+#       - "hip_L_Joint"
+#       - "knee_L_Joint"
+#       - "ankle_L_Joint"
+#       - "abad_R_Joint"
+#       - "hip_R_Joint"
+#       - "knee_R_Joint"
+#       - "ankle_R_Joint"
+#     foot_names:
+#       - "foot_L"
+#       - "foot_R"
+#     foot_sensor_names:
+#       - "state"
+#       - "force_x"
+#       - "force_y"
+#       - "force_z"
+#       - "torque_x"
+#       - "torque_y"
+#       - "torque_z"
+
+tron1_iekf_estimator:
+  ros__parameters:
+    package_name: "tron1_description"
+    urdf_path: "urdf/tron1_flat_foot.urdf"
+    # prior_noise
+    p_init_std: [0.001, 0.001, 0.001]
+    v_init_std: [0.001, 0.001, 0.001]
+    foot_init_std: 0.001
+    orientation_init_std: 0.001
+    accel_bias_init_std: 0.000001
+    angular_bias_init_std: 0.000001
+    # process_noise
+    p_process_std: [0.001, 0.001, 0.001]
+    accel_input_std: [0.08, 0.08, 0.08] # [0.04, 0.04, 0.04]
+    gyro_input_std: [0.04, 0.04, 0.04] # [0.02, 0.02, 0.02]
+    accel_bias_process_std: [0.001, 0.001, 0.001]
+    angular_bias_process_std: [0.00001, 0.00001, 0.00001]
+    # contact_noise
+    num_legs: 2
+    dim_legs: 4
+    contact_names: ["foot_L_Link", "foot_R_Link"]
+    # contact_names: ["ankle_L_Link", "ankle_R_Link"]
+    using_mob: 1
+    using_lo_p: 1
+    using_lo_v: 0
+    joint_position_std: [0.05, 0.05, 0.05, 0.05] # [0.05, 0.05, 0.05, 0.05]
+    joint_velocity_std: [0.2, 0.2, 0.2, 0.2]
+    foot_slide_std: [0.12, 0.12, 0.12] # [0.0001, 0.0001, 0.0001]
+    foot_swing_std: [1000.0, 1000.0, 1000.0]
+    contact_effort_threshold: 25.0 # 12.0
+    # body_imu calibration
+    q_body_imu: [1.0, 0.0, 0.0, 0.0] # [w, x, y, z]
+    p_body_imu: [0.0, 0.0, 0.0]
+    visualize: 0
+    # params
+    rate: 500
+    N: 1
+    # joint order
+    joint_names:
+      - "abad_L_Joint"
+      - "hip_L_Joint"
+      - "knee_L_Joint"
+      - "ankle_L_Joint"
+      - "abad_R_Joint"
+      - "hip_R_Joint"
+      - "knee_R_Joint"
+      - "ankle_R_Joint"
+    foot_names:
+      - "foot_L"
+      - "foot_R"
+    foot_sensor_names:
+      - "state"
+      - "force_x"
+      - "force_y"
+      - "force_z"
+      - "torque_x"
+      - "torque_y"
+      - "torque_z"
+    use_vicon_pos: false
+    node_name: "tron1_iekf_estimator_sub"
+    tracker_name: "grl_tron1"
+    debug: true
+
+tron1_velocity_planner:
+  ros__parameters:
+    sampling_frequency: 50.0  # Hz
+    damping_frequency: 1.0
+    damping_intensity: 0.0
+    max_linear_velocity_x: 1.5  # m/s
+    max_linear_velocity_y: 1.5  # m/s
+    max_angular_velocity_yaw: 1.0  # rad/s
+    constant_linear_velocity_x: 0.8  # m/s
+    constant_linear_velocity_y: 0.0  # m/s
+    constant_angular_velocity_yaw: 0.0  # rad/s
+    velocity_x_button: 3
+    velocity_y_button: 2
+    yaw_rate_button: 1
+    mode_button: 4
+
+tron1_mppi_planner:
+  ros__parameters:
+    update_rate: 50
+    node_name: "tron1_mppi_planner_node"
+    dt: 0.02
+    horizon: 8
+    subscribe_topic_name: "tron1/mppi_command"
+    publish_topic_name: "tron1/mppi_obs"
+    estimator_name: "tron1_iekf_estimator"
+    ref_planner_name: "tron1_velocity_planner"
+    sampling_frequency: [50.0, 50.0, 50.0]  # Hz
+    damping_frequency: [5.0, 3.0, 0.5]
+    damping_intensity: [0.0, 0.0, 0.0]
+
+tron1_edamp_controller:
+  ros__parameters:
+    joint_names:
+      - "abad_L_Joint"
+      - "hip_L_Joint"
+      - "knee_L_Joint"
+      - "ankle_L_Joint"
+      - "abad_R_Joint"
+      - "hip_R_Joint"
+      - "knee_R_Joint"
+      - "ankle_R_Joint"
+    foot_names:
+      - "foot_L"
+      - "foot_R"
+    estimator_name: "tron1_iekf_estimator"
+    kd_gains:
+      - 7.5279
+      - 7.5279
+      - 7.5279
+      - 0.8621
+      - 7.5279
+      - 7.5279
+      - 7.5279
+      - 0.8621
+
+tron1_squatting_controller:
+  ros__parameters:
+    joint_names:
+      - "abad_L_Joint"
+      - "hip_L_Joint"
+      - "knee_L_Joint"
+      - "ankle_L_Joint"
+      - "abad_R_Joint"
+      - "hip_R_Joint"
+      - "knee_R_Joint"
+      - "ankle_R_Joint"
+    foot_names:
+      - "foot_L"
+      - "foot_R"
+    estimator_name: "tron1_iekf_estimator"
+    kp_gains:
+      - 70.0
+      - 70.0
+      - 70.0
+      - 70.0
+      - 70.0
+      - 70.0
+      - 70.0
+      - 70.0
+    kd_gains:
+      - 7.5279
+      - 7.5279
+      - 7.5279
+      - 0.8621
+      - 7.5279
+      - 7.5279
+      - 7.5279
+      - 0.8621
+    # kp_gains:
+    #   - 49.6710
+    #   - 49.6710
+    #   - 49.6710
+    #   - 4.352495540631602
+    #   - 49.6710
+    #   - 49.6710
+    #   - 49.6710
+    #   - 4.352495540631602
+    # kd_gains:
+    #   - 3.7202
+    #   - 3.7202
+    #   - 3.7202
+    #   - 0.18472564802580005
+    #   - 3.7202
+    #   - 3.7202
+    #   - 3.7202
+    #   - 0.18472564802580005
+    joint_pos_ref:
+      - 0.0
+      - 0.58
+      - 1.35
+      - -0.8
+      - 0.0
+      - -0.58
+      - -1.35
+      - -0.8
+
+tron1_standing_controller:
+  ros__parameters:
+    update_rate: 50  # Hz
+    policy_path: "model/standing_policy3.onnx"
+    joint_names:
+      - "abad_L_Joint"
+      - "hip_L_Joint"
+      - "knee_L_Joint"
+      - "ankle_L_Joint"
+      - "abad_R_Joint"
+      - "hip_R_Joint"
+      - "knee_R_Joint"
+      - "ankle_R_Joint"
+    foot_names:
+      - "foot_L"
+      - "foot_R"
+    estimator_name: "tron1_iekf_estimator"
+    joint_pos_ref:
+      - 0.0
+      - 0.58
+      - 1.35
+      - -0.8
+      - 0.0
+      - -0.58
+      - -1.35
+      - -0.8
+    kp_gains:
+      - 68.74873767158742
+      - 68.74873767158742
+      - 68.74873767158742
+      - 23.696920165660938
+      - 68.74873767158742
+      - 68.74873767158742
+      - 68.74873767158742
+      - 23.696920165660938
+    kd_gains:
+      - 4.3766805728295495
+      - 4.3766805728295495
+      - 4.3766805728295495
+      - 0.4310265120602001
+      - 4.3766805728295495
+      - 4.3766805728295495
+      - 4.3766805728295495
+      - 0.4310265120602001
+    action_scales:
+      - 0.1309114945934423
+      - 0.1309114945934423
+      - 0.1309114945934423
+      - 0.21099788348215265
+      - 0.1309114945934423
+      - 0.1309114945934423
+      - 0.1309114945934423
+      - 0.21099788348215265
+    debug: true
+
+tron1_velocity_policy:
+  ros__parameters:
+    update_rate: 50  # Hz
+    policy_type: "residual"  # "base", "rnn", "residual"
+    steer_type: "none"  # "none", "closed", "open_full", "open_ref"
+    history_length: 1 # 3
+    residual_history_length: 3
+    hidden_dim: 256
+    hidden_layers: 2
+    policy_path: "model/velocity_policy.onnx"
+    # policy_path: "model/velocity_policy_gru.onnx"
+    base_policy_path: "model/velocity_policy.onnx"
+    residual_policy_path: "model/velocity_policy_residual.onnx"
+    horizon: 8
+    dt: 0.02
+    node_name: "tron1_velocity_policy_mppi_node"
+    subscribe_topic_name: "tron1/mppi_command"
+    publish_topic_name: "tron1/mppi_obs"
+    sampling_frequency: [50.0]
+    damping_frequency: [1.0]
+    damping_intensity: [0.0]
+    joint_names:
+      - "abad_L_Joint"
+      - "hip_L_Joint"
+      - "knee_L_Joint"
+      - "ankle_L_Joint"
+      - "abad_R_Joint"
+      - "hip_R_Joint"
+      - "knee_R_Joint"
+      - "ankle_R_Joint"
+    foot_names:
+      - "foot_L"
+      - "foot_R"
+    estimator_name: "tron1_iekf_estimator"
+    planner_name: "tron1_mppi_planner"
+    kp_gains:
+      - 68.74873767158742
+      - 68.74873767158742
+      - 68.74873767158742
+      - 23.696920165660938
+      - 68.74873767158742
+      - 68.74873767158742
+      - 68.74873767158742
+      - 23.696920165660938
+    kd_gains:
+      - 4.3766805728295495
+      - 4.3766805728295495
+      - 4.3766805728295495
+      - 0.4310265120602001
+      - 4.3766805728295495
+      - 4.3766805728295495
+      - 4.3766805728295495
+      - 0.4310265120602001
+    action_scales:
+      - 0.1309114945934423
+      - 0.1309114945934423
+      - 0.1309114945934423
+      - 0.21099788348215265
+      - 0.1309114945934423
+      - 0.1309114945934423
+      - 0.1309114945934423
+      - 0.21099788348215265
+    residual_action_scales:
+      - 0.3
+      - 0.3
+      - 0.3
+      - 0.3
+      - 0.3
+      - 0.3
+      - 0.3
+      - 0.3
+    debug: true
+
+recorder:
+  ros__parameters:
+    bag_name: video
+    output_directory: "bag/velocity"
+    topics: []
+
+joy_record_trigger:
+  ros__parameters:
+    joy_topic: /joy
+    record_button: 7

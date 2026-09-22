@@ -1,0 +1,20 @@
+builder:
+  python: /opt/venv/bin/python3
+  module: mujoco_sim.default_builder
+
+build:
+  resources:
+    - name: robot
+      package: tron1_description
+      path: mjcf/tron1_flat_foot.xml
+    - name: scene
+      package: scene_description
+      path: mjcf/flat_ground.xml
+
+output:
+  mjcf_path: none
+  keep_generated_mjcf: false
+
+simulation:
+  node_class_name: Tron1SimGroundTruth
+  config_path: /code/install/tron1_deploy/share/tron1_deploy/config/tron1_robot_type.yaml

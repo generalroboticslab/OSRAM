@@ -1,0 +1,19 @@
+tron1_mppi:
+  ros__parameters:
+    subscribe_topic_name: "tron1/mppi_obs"
+    publish_topic_name: "tron1/mppi_command"
+    mode_button: 6
+    # mppi
+    mppi.noise: 0.3
+    mppi.lam: 0.1
+    mppi.gains: [10.0, 2.0, 0.0]
+    mppi.horizon: 8
+    mppi.act_dim: 3
+    mppi.obs_dim: 30
+    mppi.cost_decay: 0.5
+    mppi.history_length: 10
+    model.input_dim: 33
+    model.output_dim: 3
+    # model
+    # closed-loop RNN velocity-reference MPPI
+    model.path: "model/velocity_policy/reptile_gru.npz"

@@ -1,0 +1,29 @@
+task: finetune
+model_type: tron1
+data_path: "artifacts/data/tron1/dataset/task/velocity_policy_gru/dataset_0.npz"
+lr: 0.0001
+weight_decay: 0.0
+batch_size: 64
+num_epochs: 300
+data_size: 1000
+train_size: 0.8  # number of training samples
+val_size: 0.2    # number of validation samples
+model_log_path: "artifacts/models/tron1/velocity_policy/reptile_gru_finetuned.npz"
+training_name: "finetune_mlp_gru_tron1"
+
+# model
+input_dim: 33
+output_dim: 3
+hidden_dims: [32, 64, 256, 64, 32]
+input_range: 5.0
+output_range: 5.0
+activation: "mish"
+type: "mlp"
+shuffle_length: 16
+lambda_r: 1.0
+regressive_loss_discount: 0.85
+
+# finetune
+model_load_path: "artifacts/models/tron1/velocity_policy/reptile_gru.npz"
+finetune_steps: 10
+device: "cuda:0"

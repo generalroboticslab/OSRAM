@@ -1,0 +1,11 @@
+tron1_mppi:
+  ros__parameters:
+    subscribe_topic_name: "tron1/mppi_obs"
+    publish_topic_name: "tron1/mppi_command"
+    mode_button: 6
+    # mppi
+    mppi.noise: 0.3
+    mppi.lam: 0.05
+    mppi.gains: [10.0, 0.5, 0.0]
+    mppi.cost_decay: 0.5
+    model.path: "model/velocity_policy/reptile_mppi.npz"

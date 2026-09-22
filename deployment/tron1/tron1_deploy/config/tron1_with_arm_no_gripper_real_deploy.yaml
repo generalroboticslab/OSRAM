@@ -1,0 +1,506 @@
+# Controller Manager configuration for real Tron1 with arm and no gripper
+controller_manager:
+  ros__parameters:
+    update_rate: 500
+    tron1_iekf_estimator:
+      type: tron1_deploy/Tron1IEKFEstimator
+    tron1_velocity_planner:
+      type: tron1_deploy/Tron1VelocityPlanner
+    tron1_edamp_controller:
+      type: humanoid_controllers/HumanoidPassthroughController
+    tron1_squatting_controller:
+      type: humanoid_controllers/HumanoidPassthroughController
+    tron1_standing_controller:
+      type: tron1_deploy/Tron1LocoManipulationNoGripperStandingPolicy
+    tron1_with_arm_planner:
+      type: tron1_deploy/Tron1WithArmPlanner
+    tron1_loco_manipulation:
+      type: tron1_deploy/Tron1LocoManipulationNoGripper
+tron1_iekf_estimator:
+  ros__parameters:
+    package_name: tron1_description
+    urdf_path: urdf/tron1_with_arm_flat_foot_no_gripper.urdf
+    p_init_std:
+    - 0.001
+    - 0.001
+    - 0.001
+    v_init_std:
+    - 0.001
+    - 0.001
+    - 0.001
+    foot_init_std: 0.001
+    orientation_init_std: 0.001
+    accel_bias_init_std: 1.0e-06
+    angular_bias_init_std: 1.0e-06
+    p_process_std:
+    - 0.001
+    - 0.001
+    - 0.001
+    accel_input_std:
+    - 0.08
+    - 0.08
+    - 0.08
+    gyro_input_std:
+    - 0.02
+    - 0.02
+    - 0.02
+    accel_bias_process_std:
+    - 0.001
+    - 0.001
+    - 0.001
+    angular_bias_process_std:
+    - 1.0e-05
+    - 1.0e-05
+    - 1.0e-05
+    num_legs: 2
+    dim_legs: 4
+    contact_names:
+    - foot_L_Link
+    - foot_R_Link
+    using_mob: 1
+    using_lo_p: 1
+    using_lo_v: 0
+    joint_position_std:
+    - 0.05
+    - 0.05
+    - 0.05
+    - 0.05
+    joint_velocity_std:
+    - 0.2
+    - 0.2
+    - 0.2
+    - 0.2
+    foot_slide_std:
+    - 0.05
+    - 0.05
+    - 0.05
+    foot_swing_std:
+    - 1000.0
+    - 1000.0
+    - 1000.0
+    contact_effort_threshold: 12.0
+    q_body_imu:
+    - 1.0
+    - 0.0
+    - 0.0
+    - 0.0
+    p_body_imu:
+    - 0.0
+    - 0.0
+    - 0.0
+    visualize: 0
+    rate: 500
+    N: 1
+    joint_names:
+    - abad_L_Joint
+    - hip_L_Joint
+    - knee_L_Joint
+    - ankle_L_Joint
+    - abad_R_Joint
+    - hip_R_Joint
+    - knee_R_Joint
+    - ankle_R_Joint
+    - joint1
+    - joint2
+    - joint3
+    - joint4
+    - joint5
+    - joint6
+    foot_names:
+    - foot_L
+    - foot_R
+    foot_sensor_names:
+    - state
+    - force_x
+    - force_y
+    - force_z
+    - torque_x
+    - torque_y
+    - torque_z
+    use_vicon_pos: true
+    # true defines world axes clockwise 90 deg from Vicon:
+    # x_world=-y_vicon, y_world=x_vicon.
+    # rotate_vicon_world_frame_clockwise_90: false
+    node_name: "tron1_iekf_estimator_sub"
+    tracker_name: "grl_tron1_arm"
+    debug: true
+tron1_velocity_planner:
+  ros__parameters:
+    sampling_frequency: 50.0
+    damping_frequency: 1.0
+    damping_intensity: 0.0
+    max_linear_velocity_x: 1.5
+    max_linear_velocity_y: 1.5
+    max_angular_velocity_yaw: 1.0
+    constant_linear_velocity_x: 0.0
+    constant_linear_velocity_y: 0.4
+    constant_angular_velocity_yaw: 0.0
+    velocity_x_button: 3
+    velocity_y_button: 2
+    yaw_rate_button: 1
+    mode_button: 4
+tron1_edamp_controller:
+  ros__parameters:
+    joint_names:
+    - abad_L_Joint
+    - hip_L_Joint
+    - knee_L_Joint
+    - ankle_L_Joint
+    - abad_R_Joint
+    - hip_R_Joint
+    - knee_R_Joint
+    - ankle_R_Joint
+    - joint1
+    - joint2
+    - joint3
+    - joint4
+    - joint5
+    - joint6
+    foot_names:
+    - foot_L
+    - foot_R
+    estimator_name: tron1_iekf_estimator
+    kd_gains:
+    - 3.7639
+    - 3.7639
+    - 3.7639
+    - 0.2463
+    - 3.7639
+    - 3.7639
+    - 3.7639
+    - 0.2463
+    - 8.4065 # 17.4065
+    - 8.4065
+    - 8.4065
+    - 1.3247
+    - 1.3247
+    - 1.3247
+tron1_squatting_controller:
+  ros__parameters:
+    joint_names:
+    - abad_L_Joint
+    - hip_L_Joint
+    - knee_L_Joint
+    - ankle_L_Joint
+    - abad_R_Joint
+    - hip_R_Joint
+    - knee_R_Joint
+    - ankle_R_Joint
+    - joint1
+    - joint2
+    - joint3
+    - joint4
+    - joint5
+    - joint6
+    foot_names:
+    - foot_L
+    - foot_R
+    estimator_name: tron1_iekf_estimator
+    kp_gains:
+    - 70.0
+    - 70.0
+    - 70.0
+    - 70.0
+    - 70.0
+    - 70.0
+    - 70.0
+    - 70.0
+    - 30.0
+    - 30.0
+    - 30.0
+    - 15.0
+    - 15.0
+    - 15.0
+    kd_gains:
+    - 7.5279
+    - 7.5279
+    - 7.5279
+    - 0.8621
+    - 7.5279
+    - 7.5279
+    - 7.5279
+    - 0.8621
+    - 8.7032
+    - 8.7032
+    - 8.7032
+    - 0.4415709536424074
+    - 0.4415709536424074
+    - 0.4415709536424074
+    joint_pos_ref:
+    - 0.0
+    - 0.58
+    - 1.35
+    - -0.8
+    - 0.0
+    - -0.58
+    - -1.35
+    - -0.8
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+tron1_standing_controller:
+  ros__parameters:
+    update_rate: 50
+    package_name: tron1_deploy
+    description_package_name: tron1_description
+    urdf_path: urdf/tron1_with_arm_flat_foot_no_gripper.urdf
+    policy_type: base
+    steer_type: none
+    history_length: 1
+    waypoint_name: ee_site
+    ee_frame_name: ee_site
+    policy_path: model/loco-manipulation_standing_policy_no_gripper_new3.onnx
+    use_policy_arm_actions: false
+    joint_names:
+    - abad_L_Joint
+    - hip_L_Joint
+    - knee_L_Joint
+    - ankle_L_Joint
+    - abad_R_Joint
+    - hip_R_Joint
+    - knee_R_Joint
+    - ankle_R_Joint
+    - joint1
+    - joint2
+    - joint3
+    - joint4
+    - joint5
+    - joint6
+    foot_names:
+    - foot_L
+    - foot_R
+    estimator_name: tron1_iekf_estimator
+    joint_pos_ref:
+    - 0.0
+    - 0.58
+    - 1.35
+    - -0.8
+    - 0.0
+    - -0.58
+    - -1.35
+    - -0.8
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    kp_gains:
+    # - 68.74873767158742
+    # - 68.74873767158742
+    # - 68.74873767158742
+    # - 23.696920165660938
+    - 66.54877806609663
+    - 66.54877806609663
+    - 66.54877806609663
+    - 24.67401100131293
+    # - 68.74873767158742
+    # - 68.74873767158742
+    # - 68.74873767158742
+    # - 23.696920165660938
+    - 66.54877806609663
+    - 66.54877806609663
+    - 66.54877806609663
+    - 24.67401100131293
+    - 13.671
+    - 13.671
+    - 13.671
+    - 6.936180319809881
+    - 6.936180319809881
+    - 6.936180319809881
+    kd_gains:
+    # - 4.3766805728295495
+    # - 4.3766805728295495
+    # - 4.3766805728295495
+    # - 0.4310265120602001
+    - 3.851478904090003
+    - 3.851478904090003
+    - 3.851478904090003
+    - 1.57079632675
+    # - 4.3766805728295495
+    # - 4.3766805728295495
+    # - 4.3766805728295495
+    # - 0.4310265120602001
+    - 3.851478904090003
+    - 3.851478904090003
+    - 3.851478904090003
+    - 1.57079632675
+    - 8.7032
+    - 8.7032
+    - 8.7032
+    - 0.4415709536424074
+    - 0.4415709536424074
+    - 0.4415709536424074
+    action_scales:
+    # - 0.1309114945934423
+    # - 0.1309114945934423
+    # - 0.1309114945934423
+    # - 0.21099788348215265
+    - 0.1352391473072751
+    - 0.1352391473072751
+    - 0.1352391473072751
+    - 0.2026423672962594
+    # - 0.1309114945934423
+    # - 0.1309114945934423
+    # - 0.1309114945934423
+    # - 0.21099788348215265
+    - 0.1352391473072751
+    - 0.1352391473072751
+    - 0.1352391473072751
+    - 0.2026423672962594
+    - 0.5486053914746988
+    - 0.5486053914746988
+    - 0.5486053914746988
+    - 0.3243860303882169
+    - 0.3243860303882169
+    - 0.3243860303882169
+    debug: true
+tron1_with_arm_planner:
+  ros__parameters:
+    update_rate: 50
+    package_name: tron1_description
+    urdf_path: urdf/tron1_with_arm_flat_foot_no_gripper.urdf
+    waypoint_names:
+    - ee_site
+    joint_names:
+    - abad_L_Joint
+    - hip_L_Joint
+    - knee_L_Joint
+    - ankle_L_Joint
+    - abad_R_Joint
+    - hip_R_Joint
+    - knee_R_Joint
+    - ankle_R_Joint
+    - joint1
+    - joint2
+    - joint3
+    - joint4
+    - joint5
+    - joint6
+    foot_names:
+    - foot_L
+    - foot_R
+    ref_planner_name: tron1_velocity_planner
+    estimator_name: tron1_iekf_estimator
+    point_pos_b:
+    - 0.30
+    - 0.0
+    - 0.25
+    point_rpy_b:
+    - 0.0
+    - 0.0
+    - 0.0
+    use_meta_dynamics: true
+    sine_line.start: [-0.9, 1.0, 1.0] # [-0.6, -2.9, 1.0], [-0.6, -0.35, 1.0]
+    sine_line.target: [0.8, 1.0, 1.0] # [1.1, -2.9, 1.0]
+    sine_line.duration: 8.0
+    sine_line.repeat: true
+    sine_line.amplitude: 0.15
+    sine_line.wavelength: 0.85
+    sine_line.phase: 0.0
+    sine_line.orientation_wxyz: [1.0, 0.0, 0.0, 0.0]
+    command_generator.k_xy: [5.0, 1.0] # [3.0, 1.0], [1.0, 1.0], [6.0, 1.0]
+    command_generator.vxy_max: 1.0
+    command_generator.k_yaw: 1.0
+    command_generator.wz_max: 0.5
+    command_generator.k_arm: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    command_generator.xi_max: [0.05, 0.15, 0.15, 0.35, 0.35, 0.35]
+    node_name: tron1_mppi_planner_node
+    dt: 0.02
+    horizon: 20
+    mode_button: 4
+    subscribe_topic_name: tron1/mppi_command
+    publish_topic_name: tron1/mppi_obs
+    debug: true
+tron1_loco_manipulation:
+  ros__parameters:
+    update_rate: 50
+    package_name: tron1_deploy
+    description_package_name: tron1_description
+    urdf_path: urdf/tron1_with_arm_flat_foot_no_gripper.urdf
+    policy_type: base
+    steer_type: none
+    history_length: 1
+    waypoint_name: ee_site
+    ee_frame_name: ee_site
+    policy_path: model/loco-manipulation_policy_no_gripper.onnx
+    joint_names:
+    - abad_L_Joint
+    - hip_L_Joint
+    - knee_L_Joint
+    - ankle_L_Joint
+    - abad_R_Joint
+    - hip_R_Joint
+    - knee_R_Joint
+    - ankle_R_Joint
+    - joint1
+    - joint2
+    - joint3
+    - joint4
+    - joint5
+    - joint6
+    foot_names:
+    - foot_L
+    - foot_R
+    estimator_name: tron1_iekf_estimator
+    planner_name: tron1_with_arm_planner
+    kp_gains:
+    - 68.74873767158742
+    - 68.74873767158742
+    - 68.74873767158742
+    - 23.696920165660938
+    - 68.74873767158742
+    - 68.74873767158742
+    - 68.74873767158742
+    - 23.696920165660938
+    - 13.671
+    - 13.671
+    - 13.671
+    - 6.936180319809881
+    - 6.936180319809881
+    - 6.936180319809881
+    kd_gains:
+    - 4.3766805728295495
+    - 4.3766805728295495
+    - 4.3766805728295495
+    - 0.4310265120602001
+    - 4.3766805728295495
+    - 4.3766805728295495
+    - 4.3766805728295495
+    - 0.4310265120602001
+    - 8.7032
+    - 8.7032
+    - 8.7032
+    - 0.4415709536424074
+    - 0.4415709536424074
+    - 0.4415709536424074
+    action_scales:
+    - 0.1309114945934423
+    - 0.1309114945934423
+    - 0.1309114945934423
+    - 0.21099788348215265
+    - 0.1309114945934423
+    - 0.1309114945934423
+    - 0.1309114945934423
+    - 0.21099788348215265
+    - 0.5486053914746988
+    - 0.5486053914746988
+    - 0.5486053914746988
+    - 0.3243860303882169
+    - 0.3243860303882169
+    - 0.3243860303882169
+    debug: true
+
+recorder:
+  ros__parameters:
+    bag_name: video
+    output_directory: "bag/loco-manipulation"
+    topics: []
+
+joy_record_trigger:
+  ros__parameters:
+    joy_topic: /joy
+    record_button: 7

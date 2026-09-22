@@ -1,0 +1,8 @@
+name: training
+channels:
+  - nvidia/label/cuda-12.8.0
+  - conda-forge
+dependencies:
+  - cuda
+  - cudnn
+  - python=3.12.*

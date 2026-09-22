@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="tron1_visualization_selectable">
+
+  <xacro:arg name="foot_type" default="flat"/>
+  <xacro:arg name="with_arm" default="false"/>
+
+  <xacro:property name="foot_type" value="$(arg foot_type)"/>
+  <xacro:property name="with_arm" value="$(arg with_arm)"/>
+
+  <!-- include one Tron1 foot variant -->
+  <xacro:if value="${foot_type == 'flat'}">
+    <xacro:include filename="$(find tron1_description)/urdf/tron1_flat_foot.urdf"/>
+  </xacro:if>
+  <xacro:if value="${foot_type == 'point'}">
+    <xacro:include filename="$(find tron1_description)/urdf/tron1_point_foot.urdf"/>
+  </xacro:if>
+  <xacro:if value="${foot_type == 'wheel'}">
+    <xacro:include filename="$(find tron1_description)/urdf/tron1_wheel_foot.urdf"/>
+  </xacro:if>
+
+  <!-- optionally attach the arm to the robot base -->
+  <xacro:if value="${with_arm}">
+    <xacro:include filename="$(find airbot_play_description)/urdf/airbot_play_with_gripper.urdf"/>
+
+    <joint name="arm_to_tron1_fixed" type="fixed">
+      <parent link="base_Link"/>
+      <child link="airbot_arm_base"/>
+      <origin xyz="0.0 0.0 0.015" rpy="0.0 0.0 0.0"/>
+    </joint>
+  </xacro:if>
+
+</robot>
