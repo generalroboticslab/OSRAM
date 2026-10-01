@@ -5,6 +5,7 @@
 [<img src="https://img.shields.io/badge/Framework-JAX-red.svg"/>](https://github.com/google/jax)
 [![CUDA Version](https://img.shields.io/badge/CUDA-%3E13.0-green.svg)]()
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-24.04-purple.svg)]()
+[![arXiv](https://img.shields.io/badge/arXiv-2609.28878-b31b1b.svg?logo=arxiv)](https://arxiv.org/abs/2609.28878)
 
 [Yuhao Huang](https://hyh2001.github.io/),
 [Samuel A. Moore](https://samavmoore.github.io/), and
@@ -133,6 +134,14 @@ dependencies.
 
 ## Citation
 If you find our paper or codebase helpful, please consider citing:
-```
-
+```bibtex
+@misc{huang2026onlinesimtorealadaptationclosedloop,
+      title={Online Sim-to-Real Adaptation via Closed-Loop System Modeling},
+      author={Yuhao Huang and Samuel A. Moore and Boyuan Chen},
+      year={2026},
+      eprint={2609.28878},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2609.28878},
+}
 ```
