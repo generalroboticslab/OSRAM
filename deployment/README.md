@@ -20,8 +20,9 @@ provisional release assets until their redistribution rights are confirmed.
 
 - Ubuntu 24.04 and ROS 2 Jazzy, the target platform of the upstream stack.
 - A ROS 2 workspace with `colcon`, `rosdep`, and the required hardware drivers.
-- [deployment_code_base](https://github.com/Hyh2001/deployment_code_base),
-  including its required submodules.
+- [deployment_code_base](https://github.com/Hyh2001/deployment_code_base/tree/1ed0718de910d44e4f84ff96920be51f902c060e)
+  at commit `1ed0718de910d44e4f84ff96920be51f902c060e`, including its required
+  submodules.
 - The sibling [`training`](../training/) Python package and its JAX
   dependencies for MPPI.
 
@@ -31,6 +32,7 @@ provisional release assets until their redistribution rights are confirmed.
 mkdir -p ~/tron1_ws/src
 cd ~/tron1_ws/src
 git clone https://github.com/Hyh2001/deployment_code_base.git
+git -C deployment_code_base checkout 1ed0718de910d44e4f84ff96920be51f902c060e
 git clone git@github.com:generalroboticslab/OSRAM.git
 ```
 
